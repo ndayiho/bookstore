@@ -1,26 +1,17 @@
 import React from 'react';
 import TitleH1 from "./components/titres/TitleH1";
+import Livres from "./containers/Livres";
 import Button from "./components/buttons/Button";
 
-
-const ajoutLivre=()=>{
-  console.log("ajouter un livre")
-}
-const supprimerLivre =()=> {
-  console.log("Modifier un livre")
-}
-const modifierLivre =()=> {
-  console.log("Supprimer un livre")
-}
-
 function App() {
+  const ajoutLivre = () => {
+    console.log("ajouter un livre")
+}
   return (
     <div className="container">
       <TitleH1>Page listant les Livres</TitleH1>
-      <div>Livres</div>
-      <Button btnType="btn-success" click={ () => ajoutLivre()}>Ajouter</Button>
-      <Button btnType="btn-warning" click={ () => modifierLivre()}>Modifier</Button>
-      <Button btnType="btn-danger" click={ () => supprimerLivre()}>Supprimer</Button>
+      <Livres></Livres>
+      <Button btnType="btn-success w-100" click={() => ajoutLivre()}>Ajouter</Button>
     </div>
   );
 }
