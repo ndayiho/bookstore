@@ -68,3 +68,42 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### others utils : creer les snippet dans IDE pour la creation des composant 
+{
+	// Place your snippets for javascript here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+
+	"Import react & composant stateless": {
+		"prefix": "imp-r-sl",
+		"body": [
+			"import React from 'react';\n",
+			"const ${component} = (props) => {",
+			"\t return(",
+			"\t \t Ecrire le code ici",
+			"\t );\n",
+			"}\n",
+			"export default ${component}"
+		],
+		"description": "Import react & composant stateless"
+	},
+	"Import react & composant StateFull": {
+		"prefix": "imp-r-sf",
+		"body": [
+			"import React,{Component} from 'react';\n",
+			"class ${component} extends Component {",
+			"\t render(){",
+			"\t \t return(",
+			"\t \t \tEcrire le code ici",
+			"\t \t );",
+			"\t}",
+			"}",
+			"export default ${component}"
+		],
+		"description": "Import react & composant StateFull"
+	}
+}
