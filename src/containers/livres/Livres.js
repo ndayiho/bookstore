@@ -33,6 +33,28 @@ class Livres extends Component {
         ]
     }
 
+    supprimerLivreHandler = (id) => {
+        console.log(`Supprimer le livre ${id}`);
+        //cherche l' index du livre à supprimer
+        const indexLivre = this.state.livres.findIndex(livre => {
+            return livre.id === id;
+        })
+        // faire un copy de nos livres//
+        const newLivres = [...this.state.livres];
+        // Enlever le livre d'indice id de notre tab copié 
+        newLivres.splice(indexLivre,1)
+        // Mette à jour notre livres dans le state
+        this.setState({
+            livres : newLivres
+        })
+
+    }
+
+    
+    modifierLivreHandler = (id) => {
+        console.log(`Modifier le livre ${id}`);
+    }
+
     render() {
         return (
             <>
@@ -50,7 +72,10 @@ class Livres extends Component {
                             this.state.livres.map(livre => {
                                 return (
                                     <tr key={livre.id}>
-                                        <Livre {...livre}></Livre>
+                                        <Livre {...livre}
+                                            delete={() => this.supprimerLivreHandler(livre.id)}
+                                            update={() => this.modifierLivreHandler(livre.id)}>
+                                        </Livre>
                                     </tr>
                                 )
                             })
