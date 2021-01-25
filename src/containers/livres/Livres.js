@@ -33,24 +33,24 @@ class Livres extends Component {
         ]
     }
 
-    supprimerLivreHandler = (id) => {
-        console.log(`Supprimer le livre ${id}`);
+
+    supprimerLivreHandler = (livreId) => {
+        console.log(`Supprimer le livre ${livreId}`);
         //cherche l' index du livre à supprimer
         const indexLivre = this.state.livres.findIndex(livre => {
-            return livre.id === id;
+            return livre.id === livreId;
         })
-        // faire un copy de nos livres//
-        const newLivres = [...this.state.livres];
-        // Enlever le livre d'indice id de notre tab copié 
-        newLivres.splice(indexLivre,1)
+        // faire un copy de nos livres // on peut utilise la fonction slice
+        const newLivresList = [...this.state.livres];
+        // Enlever le livre d'indice id de notre tab copié
+        newLivresList.splice(indexLivre,1)
         // Mette à jour notre livres dans le state
         this.setState({
-            livres : newLivres
+            livres : newLivresList
         })
-
     }
 
-    
+
     modifierLivreHandler = (id) => {
         console.log(`Modifier le livre ${id}`);
     }
