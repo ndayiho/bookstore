@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Livre from "./Livre.js";
+import LivreForm from "../livres/formulaires/LivreForm"
 
 class Livres extends Component {
 
@@ -43,10 +44,10 @@ class Livres extends Component {
         // faire un copy de nos livres // on peut utilise la fonction slice
         const newLivresList = [...this.state.livres];
         // Enlever le livre d'indice id de notre tab copié
-        newLivresList.splice(indexLivre,1)
+        newLivresList.splice(indexLivre, 1)
         // Mette à jour notre livres dans le state
         this.setState({
-            livres : newLivresList
+            livres: newLivresList
         })
     }
 
@@ -58,6 +59,7 @@ class Livres extends Component {
     render() {
         return (
             <>
+
                 <table className="table text-center">
                     <thead>
                         <tr className="table-dark">
@@ -77,11 +79,14 @@ class Livres extends Component {
                                             update={() => this.modifierLivreHandler(livre.id)}>
                                         </Livre>
                                     </tr>
+
+
                                 )
                             })
                         }
                     </tbody>
                 </table>
+                { this.props.ajoute && <LivreForm/>}
             </>
         );
     }
