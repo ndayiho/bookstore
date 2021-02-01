@@ -31,7 +31,8 @@ class Livres extends Component {
                 nbrePages: 500,
             },
 
-        ]
+        ],
+        lastLivreId: 4
     }
 
 
@@ -54,6 +55,24 @@ class Livres extends Component {
 
     modifierLivreHandler = (id) => {
         console.log(`Modifier le livre ${id}`);
+    }
+
+    handlerValidationForm = (title, auteur, nbrePages) => {
+        const idLivre = this.state.lastLivreId + 1;
+        console.log(`Ajouter le livre ${title} et d'id ${idLivre}`);
+        // faire un copy de nos livres // on peut utilise la fonction slice
+        const newLivresList = [...this.state.livres];
+        // creer le livre
+        const newLivre = { id: idLivre, title: title, auteur: auteur, nbrePages: nbrePages };
+        //ajoute le livre à notre list des livres
+        newLivresList.push(newLivre);
+        // Mette à jour notre livres dans le state
+        this.setState((oldState) => ({
+            livres: newLivresList,
+            lastLivreId: oldState.lastLivreId + 1
+        }));
+        //Fermer le formulaire
+        this.props.fermerLivreForm();
     }
 
     render() {
@@ -86,7 +105,7 @@ class Livres extends Component {
                         }
                     </tbody>
                 </table>
-                { this.props.ajoute && <LivreForm/>}
+                { this.props.ajoute && <LivreForm validation={this.handlerValidationForm} />}
             </>
         );
     }
