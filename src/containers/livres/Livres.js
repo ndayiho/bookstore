@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Livre from "./Livre.js";
 import LivreForm from "../livres/formulaires/LivreForm"
+import LivreModificationForm from "./formulaires/LivreModificationForm.js"
 
 class Livres extends Component {
 
@@ -32,7 +33,8 @@ class Livres extends Component {
             },
 
         ],
-        lastLivreId: 4
+        lastLivreId: 4,
+        idLivreAMofifier: 0
     }
 
 
@@ -53,8 +55,23 @@ class Livres extends Component {
     }
 
 
-    modifierLivreHandler = (id) => {
-        console.log(`Modifier le livre ${id}`);
+    handlerOnValidationModificationLivre = (titre, auteur, nbrePages) => {
+        console.log(`Modifier le livre ${this.state.idLivreAMofifier}`);
+        //cherche l' index du livre à Modifier
+        const indexLivre = this.state.livres.findIndex(livre => {
+            return livre.id === this.state.idLivreAMofifier;
+        })
+        // faire un copy de nos livres // on peut utilise la fonction slice
+        const newLivresList = [...this.state.livres];
+        newLivresList[indexLivre].title = titre;
+        newLivresList[indexLivre].auteur = auteur;
+        newLivresList[indexLivre].nbrePages = nbrePages;
+
+        // Mette à jour nos livreset le idLivreAMofifier à 0 dans le state
+        this.setState({
+            livres: newLivresList,
+            idLivreAMofifier: 0
+        })
     }
 
     handlerValidationForm = (title, auteur, nbrePages) => {
@@ -78,7 +95,6 @@ class Livres extends Component {
     render() {
         return (
             <>
-
                 <table className="table text-center">
                     <thead>
                         <tr className="table-dark">
@@ -91,16 +107,25 @@ class Livres extends Component {
                     <tbody>
                         {
                             this.state.livres.map(livre => {
-                                return (
-                                    <tr key={livre.id}>
-                                        <Livre {...livre}
-                                            delete={() => this.supprimerLivreHandler(livre.id)}
-                                            update={() => this.modifierLivreHandler(livre.id)}>
-                                        </Livre>
-                                    </tr>
+                                if (this.state.idLivreAMofifier !== livre.id) {
+                                    return (
+                                        <tr key={livre.id}>
+                                            <Livre {...livre}
+                                                delete={() => this.supprimerLivreHandler(livre.id)}
+                                                update={() => this.setState({ idLivreAMofifier: livre.id })}>
+                                            </Livre>
+                                        </tr>
+                                    )
+                                } else {
+                                    return (
+                                        <tr key={livre.id}>
+                                            <LivreModificationForm {...livre}
+                                                onModificationValidation={this.handlerOnValidationModificationLivre}>
+                                            </LivreModificationForm>
+                                        </tr>
+                                    )
+                                }
 
-
-                                )
                             })
                         }
                     </tbody>
