@@ -63,6 +63,7 @@ class Livres extends Component {
         })
         // faire un copy de nos livres // on peut utilise la fonction slice
         const newLivresList = [...this.state.livres];
+        /* soit, je peux changer les valeurs du livre ou creer un nouveau livre*/ 
         newLivresList[indexLivre].title = titre;
         newLivresList[indexLivre].auteur = auteur;
         newLivresList[indexLivre].nbrePages = nbrePages;
