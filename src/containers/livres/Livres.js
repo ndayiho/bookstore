@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Livre from "./Livre.js";
 import LivreForm from "../livres/formulaires/LivreForm"
 import LivreModificationForm from "./formulaires/LivreModificationForm.js"
+import Alert from '../../components/alerts/Alert'
 
 class Livres extends Component {
 
@@ -34,7 +35,8 @@ class Livres extends Component {
 
         ],
         lastLivreId: 4,
-        idLivreAMofifier: 0
+        idLivreAMofifier: 0,
+        customAlertAfterValidation: null
     }
 
 
@@ -50,7 +52,12 @@ class Livres extends Component {
         newLivresList.splice(indexLivre, 1)
         // Mette à jour notre livres dans le state
         this.setState({
-            livres: newLivresList
+            livres: newLivresList,
+            customAlertAfterValidation: {
+                message: "Suppression réussié",
+                alertType: "alert-danger"
+
+            }
         })
     }
 
@@ -63,7 +70,7 @@ class Livres extends Component {
         })
         // faire un copy de nos livres // on peut utilise la fonction slice
         const newLivresList = [...this.state.livres];
-        /* soit, je peux changer les valeurs du livre ou creer un nouveau livre*/ 
+        /* soit, je peux changer les valeurs du livre ou creer un nouveau livre*/
         newLivresList[indexLivre].title = titre;
         newLivresList[indexLivre].auteur = auteur;
         newLivresList[indexLivre].nbrePages = nbrePages;
@@ -71,7 +78,12 @@ class Livres extends Component {
         // Mette à jour nos livreset le idLivreAMofifier à 0 dans le state
         this.setState({
             livres: newLivresList,
-            idLivreAMofifier: 0
+            idLivreAMofifier: 0,
+            customAlertAfterValidation: {
+                message: "Modification réussie",
+                alertType: "alert-warning"
+
+            }
         })
     }
 
@@ -91,11 +103,20 @@ class Livres extends Component {
         }));
         //Fermer le formulaire
         this.props.fermerLivreForm();
+        this.setState({
+            customAlertAfterValidation: {
+                message: "Nouveau livre ajouté",
+                alertType: "alert-success"
+
+            }
+        })
     }
 
     render() {
+
         return (
             <>
+                {this.state.customAlertAfterValidation && <Alert alertClassNames={this.state.customAlertAfterValidation.alertType}>{this.state.customAlertAfterValidation.message}</Alert>}
                 <table className="table text-center">
                     <thead>
                         <tr className="table-dark">

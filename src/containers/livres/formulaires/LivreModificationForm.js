@@ -8,9 +8,9 @@ class LivreModificationForm extends Component {
         auteurSaisi: "",
         nombrePagesSaisi: ""
     }
-//une fois que le composant est charge, on initialise les valeur en state aux valeurs precedentes
+    //une fois que le composant est charge, on initialise les valeur en state aux valeurs precedentes
     componentDidMount() {
-        this.setState ({
+        this.setState({
             titreSaisi: this.props.title,
             auteurSaisi: this.props.auteur,
             nombrePagesSaisi: this.props.nbrePages
