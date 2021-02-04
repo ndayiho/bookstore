@@ -1,47 +1,55 @@
 import React, { Component } from 'react';
-import Button from '../../../components/buttons/Button'
+import Button from '../../../components/buttons/Button';
+import { withFormik } from 'formik';
 
 class LivreModificationForm extends Component {
-
-    state = {
-        titreSaisi: "",
-        auteurSaisi: "",
-        nombrePagesSaisi: ""
-    }
-    //une fois que le composant est charge, on initialise les valeur en state aux valeurs precedentes
-    componentDidMount() {
-        this.setState({
-            titreSaisi: this.props.title,
-            auteurSaisi: this.props.auteur,
-            nombrePagesSaisi: this.props.nbrePages
-        })
-    }
-
-    handlerValidModifLivre = () => {
-        this.props.onModificationValidation(this.state.titreSaisi, this.state.auteurSaisi, this.state.nombrePagesSaisi);
-    }
 
     render() {
         return (
             <>
                 <td>
-                    <input type="text" className="form-control" value={this.state.titreSaisi}
-                        onChange={(event) => this.setState({ titreSaisi: event.target.value })} />
+                    <input type="text" className="form-control"
+                        name="titre"
+                        value={this.props.values.titre}
+                        onChange={this.props.handleChange}
+                        onBlur={this.props.handleBlur} />
                 </td>
                 <td>
-                    <input type="text" className="form-control" value={this.state.auteurSaisi}
-                        onChange={(event) => this.setState({ auteurSaisi: event.target.value })} />
+                    <input type="text" className="form-control"
+                        name="auteur"
+                        value={this.props.values.auteur}
+                        onChange={this.props.handleChange}
+                        onBlur={this.props.handleBlur} />
                 </td>
                 <td>
-                    <input type="text" className="form-control" value={this.state.nombrePagesSaisi}
-                        onChange={(event) => this.setState({ nombrePagesSaisi: event.target.value })} />
+                    <input type="number" className="form-control"
+                        name="nbPages"
+                        value={this.props.values.nbPages}
+                        onChange={this.props.handleChange}
+                        onBlur={this.props.handleBlur} />
                 </td>
                 <td>
-                    <Button btnType="btn-success" clic={this.handlerValidModifLivre} >Valider</Button>
+                    <Button btnType="btn-success" clic={this.props.handleSubmit} >Valider</Button>
                 </td>
             </>
         );
     }
 }
 
-export default LivreModificationForm
+export default withFormik({
+    mapPropsToValues: (props) => ({
+        titre: props.title,
+        auteur: props.auteur,
+        nbPages: props.nbrePages
+    }),
+
+    validation: values => {
+
+
+    },
+
+    handleSubmit: (values, { props }) => {
+        props.onModificationValidation(values.titre, values.auteur, values.nbPages)
+    }
+
+})(LivreModificationForm);
